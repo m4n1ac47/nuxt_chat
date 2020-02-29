@@ -1,11 +1,11 @@
 <template>
   <div class="c-wrap">
-    <div class="c-chat">
+    <div class="c-chat" ref="block">
       <message
-        v-for="m in messages" :key="m.text"
+        v-for="m in messages" :key="m.id"
         :name="m.name"
         :text="m.text"
-        owner
+        :owner="m.id === user.id"
       />
     </div>
     <div class="c-form">
@@ -32,6 +32,13 @@ export default {
   },
   computed: {
     ...mapState(['user', 'messages'])
+  },
+  watch: {
+    messages() {
+      setTimeout(() => {
+        this.$refs.block.scrollTop = this.$refs.block.scrollHeight
+      })
+    }
   }
 }
 </script>
